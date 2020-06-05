@@ -5,6 +5,7 @@ import com.atguigu.commonutils.ResultResponse;
 import com.atguigu.eduservice.entity.EduTeacher;
 import com.atguigu.eduservice.service.EduTeacherService;
 import com.atguigu.servicebase.config.SwaggerConfig;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -47,6 +48,22 @@ public class EduTeacherController {
             @PathVariable String id) {
         teacherService.removeById(id);
         return ResultResponse.succeed();
+    }
+
+    @ApiOperation(value = "分页讲师列表")
+    @GetMapping("{page}/{limit}")
+    public ResultResponse pageList(
+            @ApiParam(name = "page", value = "当前页码", required = true)
+            @PathVariable Long page,
+
+            @ApiParam(name = "limit", value = "每页条数", required = true)
+            @PathVariable Long limit
+    ){
+        Page<EduTeacher> pageParam = new Page<>(page, limit);
+        teacherService.page(pageParam, null);
+        List<EduTeacher> records = pageParam.getRecords();
+        long total = pageParam.getTotal();
+        return  ResultResponse.succeed().data("total", total).data("rows", records);
     }
 
 }
