@@ -1,6 +1,7 @@
 package com.atguigu.eduservice.controller;
 
 
+import com.atguigu.commonutils.ResultResponse;
 import com.atguigu.eduservice.entity.EduTeacher;
 import com.atguigu.eduservice.service.EduTeacherService;
 import com.atguigu.servicebase.config.SwaggerConfig;
@@ -34,16 +35,18 @@ public class EduTeacherController {
 
     @ApiOperation(value = "查找所有的讲师")
     @GetMapping("findAll")
-    public List<EduTeacher> list(){
-        return teacherService.list(null);
+    public ResultResponse list(){
+        List<EduTeacher> list = teacherService.list(null);
+        return ResultResponse.succeed().data("items", list);
     }
 
     @ApiOperation(value = "通过讲师ID查找讲师")
     @GetMapping("delete/{id}")
-    public boolean removeById(
+    public ResultResponse removeById(
             @ApiParam(name = "id", value = "传入参数ID", required = true)
             @PathVariable String id) {
-        return teacherService.removeById(id);
+        teacherService.removeById(id);
+        return ResultResponse.succeed();
     }
 
 }
