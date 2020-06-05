@@ -5,6 +5,7 @@ import com.atguigu.eduservice.entity.EduTeacher;
 import com.atguigu.eduservice.service.EduTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -32,5 +33,11 @@ public class EduTeacherController {
         return teacherService.list(null);
 
     }
+
+    @GetMapping("delete/{id}")
+    public boolean removeById(@PathVariable String id) {
+        return teacherService.removeById(id);
+    }
+
 }
 
