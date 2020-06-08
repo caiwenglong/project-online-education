@@ -38,6 +38,16 @@ public class EduTeacherController {
         return ResultResponse.succeed().data("items", list);
     }
 
+    @ApiOperation(value = "根据ID查找讲师")
+    @GetMapping("get-teacher/{id}")
+    public ResultResponse getTeacherById(
+            @ApiParam(value = "讲师ID", required = true)
+            @PathVariable String id
+    ) {
+        EduTeacher teacher = teacherService.getById(id);
+        return ResultResponse.succeed().data("teacher", teacher);
+    }
+
     @ApiOperation(value = "通过ID删除讲师")
     @DeleteMapping("delete/{id}")
     public ResultResponse removeById(
@@ -98,16 +108,16 @@ public class EduTeacherController {
     }
 
     @ApiOperation("根据ID修改讲师信息")
-    @GetMapping("update/{id}")
+    @PostMapping("update-teacher")
     public ResultResponse updateById(
-            @ApiParam(value = "讲师ID", required = true)
-            @PathVariable String id
+            @ApiParam(value = "要修改的讲师对象", required = true)
+            @RequestBody EduTeacher teacher
     ){
-        EduTeacher eduTeacher = teacherService.getById(id);
-        if(eduTeacher != null) {
-            return ResultResponse.succeed().data("item", eduTeacher);
+        boolean result = teacherService.updateById(teacher);
+        if(result) {
+            return ResultResponse.succeed().message("保存成功");
         } else {
-            return ResultResponse.failed().message("查询不到该讲师");
+            return ResultResponse.failed().message("保存失败");
         }
     }
 
