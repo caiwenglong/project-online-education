@@ -1,6 +1,8 @@
 package com.atguigu.service.base.hanlder;
 
-import com.atguigu.commonutils.ResultResponse;
+import com.atguigu.common.utils.ExceptionUtils;
+import com.atguigu.common.utils.ResultResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -8,11 +10,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResultResponse errorAll(Exception e){
-        e.printStackTrace();
+
+        log.error(ExceptionUtils.getMessage(e));
+//        e.printStackTrace();
         return ResultResponse.failed().message("全局异常处理");
     }
 

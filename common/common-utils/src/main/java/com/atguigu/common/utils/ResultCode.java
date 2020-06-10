@@ -1,4 +1,4 @@
-package com.atguigu.commonutils;
+package com.atguigu.common.utils;
 
 /*
 *  定义返回码

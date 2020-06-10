@@ -1,7 +1,7 @@
 package com.atguigu.eduservice.controller;
 
 
-import com.atguigu.commonutils.ResultResponse;
+import com.atguigu.common.utils.ResultResponse;
 import com.atguigu.eduservice.entity.EduTeacher;
 import com.atguigu.eduservice.entity.vo.TeacherQuery;
 import com.atguigu.eduservice.service.EduTeacherService;
