@@ -57,22 +57,6 @@ public class EduTeacherController {
         return ResultResponse.succeed();
     }
 
-    /*@ApiOperation(value = "分页讲师列表")
-    @GetMapping("{page}/{limit}")
-    public ResultResponse pageList(
-            @ApiParam(name = "page", value = "当前页码", required = true)
-            @PathVariable Long page,
-
-            @ApiParam(name = "limit", value = "每页条数", required = true)
-            @PathVariable Long limit
-    ){
-        Page<EduTeacher> pageParam = new Page<>(page, limit);
-        teacherService.page(pageParam, null);
-        List<EduTeacher> records = pageParam.getRecords();
-        long total = pageParam.getTotal();
-        return  ResultResponse.succeed().data("total", total).data("rows", records);
-    }*/
-
     @ApiOperation(value = "通过条件查询数据")
     @GetMapping("{page}/{limit}")
     public ResultResponse pageQuery(
@@ -119,6 +103,13 @@ public class EduTeacherController {
         } else {
             return ResultResponse.failed().message("保存失败");
         }
+    }
+
+    @ApiOperation("全局异常处理测试")
+    @GetMapping("exception")
+    public ResultResponse exceptionHandleTest(){
+        Number a = 1/0;
+        return ResultResponse.succeed().message("执行了异常处理测试方法");
     }
 
 }
