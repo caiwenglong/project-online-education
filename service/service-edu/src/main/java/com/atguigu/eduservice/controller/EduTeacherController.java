@@ -26,6 +26,7 @@ import java.util.List;
 @Api(tags = { SwaggerConfig.TAG_1 })
 @RestController
 @RequestMapping("/eduservice/edu-teacher")
+@CrossOrigin(origins="*",maxAge=3600)
 public class EduTeacherController {
 
     @Autowired
@@ -58,7 +59,7 @@ public class EduTeacherController {
     }
 
     @ApiOperation(value = "通过条件查询数据")
-    @GetMapping("{page}/{limit}")
+    @GetMapping("list/{page}/{limit}")
     public ResultResponse pageQuery(
             @ApiParam(name = "page", value = "当前页码", required = true)
             @PathVariable Long page,
@@ -92,7 +93,7 @@ public class EduTeacherController {
     }
 
     @ApiOperation("根据ID修改讲师信息")
-    @PostMapping("update-teacher")
+    @PutMapping("update-teacher")
     public ResultResponse updateById(
             @ApiParam(value = "要修改的讲师对象", required = true)
             @RequestBody EduTeacher teacher
